@@ -62,9 +62,7 @@ public class Client implements Runnable {
             }
 
             rs = stmt.executeQuery("SELECT * FROM serverURL LIMIT 1");
-            conn.close();
-            rs.next();
-            if (rs != null) {
+            if (rs.next()) {
                 String serverURL = rs.getString(2);
                 int serverPort = rs.getInt(3);
                 Socket sock = new Socket(serverURL, serverPort);
@@ -81,6 +79,7 @@ public class Client implements Runnable {
             } else {
                 //TODO server yok, ne bok yiyeceğiz?
             }
+            conn.close();
         } catch (UnknownHostException ex) {
             System.out.println(ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
