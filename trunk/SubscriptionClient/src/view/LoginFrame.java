@@ -142,7 +142,7 @@ public class LoginFrame extends javax.swing.JFrame {
         if (usernameField.getText().isEmpty() || passwordField.getPassword().length == 0) {
             JOptionPane.showMessageDialog(null, "Kullanıcı adı/Şifre boş olamaz!");
         } else {
-            new ClientFrame(usernameField.getText(), passwordField.getPassword().toString()).setVisible(true);
+            new ClientFrame(usernameField.getText(), new String(passwordField.getPassword())).setVisible(true);
             setVisible(false);
         }
 
