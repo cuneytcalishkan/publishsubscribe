@@ -50,15 +50,7 @@ public class SubscriptionServer extends Observable {
     }
 
     public void unpublishIPOnDB() {
-        try {
-            String sql = "TRUNCATE TABLE serverURL";
-            Connection connection = ConnectDB.getConnection(username, password);
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.executeUpdate();
-            connection.close();
-        } catch (SQLException ex) {
-            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-        }
+        executor.execute(new Unpublisher(this));
 
     }
 
