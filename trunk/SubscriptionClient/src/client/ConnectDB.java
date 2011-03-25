@@ -3,6 +3,7 @@ package client;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
 
 public class ConnectDB {
 
@@ -13,16 +14,15 @@ public class ConnectDB {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.out.println(e);
+                SLogger.getLogger().log(Level.SEVERE, e.getMessage());
             }
             String url = "jdbc:mysql://mysql02.natro.com:3306/orenux";
             try {
                 connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                System.out.println("connection problem");
-                e.printStackTrace();
+                System.out.println(1);
+                SLogger.getLogger().log(Level.SEVERE, e.getMessage());
             }
         }
         return connection;

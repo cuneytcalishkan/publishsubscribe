@@ -29,7 +29,8 @@ public class Ponger implements Runnable {
             Socket sock = ser.accept();
             sock.close();
         } catch (IOException ex) {
-            Logger.getLogger(Ponger.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
 
     }
