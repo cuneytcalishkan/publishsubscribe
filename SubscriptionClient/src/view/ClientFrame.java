@@ -36,10 +36,14 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     private Client client;
     private JavaSoundAudioClip sound;
     private int selected = Message.SIGNAL;
+    private String username;
+    private String password;
 
     /** Creates new form ClientFrame */
-    public ClientFrame() {
+    public ClientFrame(String username, String password) {
         initComponents();
+        this.username = username;
+        this.password = password;
         init();
     }
 
@@ -167,29 +171,6 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             messageList.setModel(new MessageModel(client.getComments()));
         }
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    new ClientFrame().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InstantiationException ex) {
-                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton commentsButton;
     private javax.swing.JPanel mainPanel;
@@ -221,5 +202,9 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                 JOptionPane.showMessageDialog(null, list.getSelectedValue().toString(), "Detaylı Bilgi", JOptionPane.PLAIN_MESSAGE);
             }
         }
+    }
+
+    public void setConnectionButtonVisible(boolean aFlag) {
+        reconnectButton.setVisible(aFlag);
     }
 }
