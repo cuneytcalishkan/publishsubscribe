@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import model.Reader;
 
 /**
@@ -36,6 +37,7 @@ public class ConnectionHandler implements Runnable {
             ss.changed();
         } catch (IOException ex) {
             System.out.println(ex);
+            //TODO kullanıcı gitti. saygılar.
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }

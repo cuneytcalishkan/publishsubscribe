@@ -20,6 +20,7 @@ import java.util.Observable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import model.Reader;
 
 /**
@@ -71,13 +72,11 @@ public class SubscriptionServer extends Observable {
             ps.setInt(2, port);
             ps.executeUpdate();
             connection.close();
-        } catch (MalformedURLException ex) {
-            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-        } catch (UnknownHostException ex) {
-            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Internet bağlantısı yok veya whatismyip'ye bağlanılamıyor.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
 
