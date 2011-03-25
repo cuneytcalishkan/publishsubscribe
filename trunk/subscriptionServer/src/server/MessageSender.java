@@ -57,24 +57,22 @@ public class MessageSender implements Runnable {
             for (Iterator<Reader> it = ss.getReaderList().keySet().iterator(); it.hasNext();) {
                 Reader reader = it.next();
                 Socket socket = ss.getReaderList().get(reader);
-                if (socket != null) {
-                    try {
-                        PrintWriter pw = new PrintWriter(socket.getOutputStream());
-                        pw.println(message.toString());
-                        pw.println("/EOL/");
-                        pw.flush();
-                    } catch (UnknownHostException ex) {
-                        System.out.println(ex);
-                        removal.add(reader);
-                        SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-                    } catch (IOException ex) {
-                        System.out.println(ex);
-                        removal.add(reader);
-                        SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-                    }
-                } else {
+
+                try {
+                    PrintWriter pw = new PrintWriter(socket.getOutputStream());
+                    pw.println(message.toString());
+                    pw.println("/EOL/");
+                    pw.flush();
+                } catch (UnknownHostException ex) {
+                    System.out.println(ex);
                     removal.add(reader);
+                    SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
+                } catch (IOException ex) {
+                    System.out.println(ex);
+                    removal.add(reader);
+                    SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
                 }
+
             }
             for (Reader reader : removal) {
                 ss.getReaderList().remove(reader);
@@ -82,7 +80,7 @@ public class MessageSender implements Runnable {
             ss.changed();
         } catch (SQLException ex) {
             System.out.println(ex);
-            JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n Mesaj veritabanına eklenemedi, fakat kullanıcılara gönderildi.\n" + ex);
+            JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n Mesaj veritabanına eklenemedi.");
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
