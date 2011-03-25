@@ -30,8 +30,6 @@ public class Pinger extends TimerTask {
                 SLogger.getLogger().log(Level.SEVERE, ioe.getMessage(), ioe);
             }
         }
-        for (Reader rem : removal) {
-            SubscriptionServer.getReaderList().remove(rem);
-        }
+        SubscriptionServer.getReaderList().removeAll(removal);
     }
 }
