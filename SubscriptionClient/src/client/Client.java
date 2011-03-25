@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.List;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -138,5 +139,13 @@ public class Client extends Observable implements Runnable {
 
     public void setSubscriber(Subscriber subscriber) {
         this.subscriber = subscriber;
+    }
+
+    public List<Message> getSignals() {
+        return subscriber.getSignals();
+    }
+
+    public List<Message> getComments() {
+        return subscriber.getComments();
     }
 }

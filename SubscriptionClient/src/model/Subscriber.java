@@ -36,4 +36,12 @@ public class Subscriber {
     private void addComment(Message mes) {
         comments.add(mes);
     }
+
+    public List<Message> getComments() {
+        return comments;
+    }
+
+    public List<Message> getSignals() {
+        return signals;
+    }
 }

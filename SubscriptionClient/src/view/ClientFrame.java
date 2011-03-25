@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import model.Message;
 
 /**
  *
@@ -29,7 +30,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class ClientFrame extends javax.swing.JFrame implements Observer {
 
     private Client client;
-    JavaSoundAudioClip sound;
+    private JavaSoundAudioClip sound;
+    private int selected = Message.SIGNAL;
 
     /** Creates new form ClientFrame */
     public ClientFrame() {
@@ -43,6 +45,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             client.addObserver(this);
             client.start();
             sound = new JavaSoundAudioClip(new FileInputStream(new File("resources/newMessage.wav")));
+            updateMessageList();
         } catch (IOException ex) {
             Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,8 +75,18 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         messagesScrollPane.setViewportView(messageList);
 
         viewSignalsButton.setText("Sinyaller");
+        viewSignalsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewSignalsButtonActionPerformed(evt);
+            }
+        });
 
         commentsButton.setText("Yorumlar");
+        commentsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commentsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -124,6 +137,24 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void viewSignalsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSignalsButtonActionPerformed
+        selected = Message.SIGNAL;
+        updateMessageList();
+    }//GEN-LAST:event_viewSignalsButtonActionPerformed
+
+    private void commentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsButtonActionPerformed
+        selected = Message.COMMENT;
+        updateMessageList();
+    }//GEN-LAST:event_commentsButtonActionPerformed
+
+    private void updateMessageList() {
+        if (selected == Message.SIGNAL) {
+            messageList.setModel(new MessageModel(client.getSignals()));
+        } else {
+            messageList.setModel(new MessageModel(client.getComments()));
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -159,5 +190,6 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         if (playSoundCheckBox.isSelected()) {
             sound.play();
         }
+        updateMessageList();
     }
 }
