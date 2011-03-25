@@ -14,14 +14,12 @@ public class Reader {
     private int port;
     private int pingPort;
     private String username;
-    private String password;
 
-    public Reader(String address, int port, int pingPort, String username, String password) {
+    public Reader(String address, int port, int pingPort, String username) {
         this.address = address;
         this.port = port;
         this.pingPort = pingPort;
         this.username = username;
-        this.password = password;
     }
 
     public int getPingPort() {
@@ -38,14 +36,6 @@ public class Reader {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getPort() {
