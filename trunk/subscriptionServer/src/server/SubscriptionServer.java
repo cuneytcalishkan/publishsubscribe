@@ -8,13 +8,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Observable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -136,5 +135,13 @@ public class SubscriptionServer extends Observable {
 
     public void setReaderList(ArrayList<Reader> readerList) {
         this.readerList = readerList;
+    }
+
+    public boolean removeAll(Collection<?> c) {
+        return readerList.removeAll(c);
+    }
+
+    public boolean remove(Reader o) {
+        return readerList.remove(o);
     }
 }
