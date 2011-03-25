@@ -32,8 +32,8 @@ public class ConnectionHandler implements Runnable {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String line;
             line = reader.readLine();
-            Reader rdr = new Reader(socket.getInetAddress().getHostAddress(), line);
-            ss.getReaderList().put(rdr, socket);
+            Reader rdr = new Reader(socket.getInetAddress().getHostAddress(), line, socket);
+            ss.getReaderList().add(rdr);
             ss.changed();
         } catch (IOException ex) {
             System.out.println(ex);

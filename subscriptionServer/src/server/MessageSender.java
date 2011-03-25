@@ -6,7 +6,6 @@ package server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import model.Message;
@@ -54,12 +52,9 @@ public class MessageSender implements Runnable {
                     eTime,
                     msg, cat);
 
-            for (Iterator<Reader> it = ss.getReaderList().keySet().iterator(); it.hasNext();) {
-                Reader reader = it.next();
-                Socket socket = ss.getReaderList().get(reader);
-
+            for (Reader reader : ss.getReaderList()) {
                 try {
-                    PrintWriter pw = new PrintWriter(socket.getOutputStream());
+                    PrintWriter pw = new PrintWriter(reader.getSocket().getOutputStream());
                     pw.println(message.toString());
                     pw.println("/EOL/");
                     pw.flush();

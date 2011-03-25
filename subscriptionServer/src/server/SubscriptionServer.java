@@ -9,13 +9,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -29,7 +28,7 @@ import model.Reader;
  */
 public class SubscriptionServer extends Observable {
 
-    private HashMap<Reader, Socket> readerList = new HashMap<Reader, Socket>();
+    private ArrayList<Reader> readerList = new ArrayList<Reader>();
     private int port;
     private Listener listener;
     private Executor executor;
@@ -131,11 +130,11 @@ public class SubscriptionServer extends Observable {
         this.username = username;
     }
 
-    public HashMap<Reader, Socket> getReaderList() {
+    public ArrayList<Reader> getReaderList() {
         return readerList;
     }
 
-    public void setReaderList(HashMap<Reader, Socket> readerList) {
+    public void setReaderList(ArrayList<Reader> readerList) {
         this.readerList = readerList;
     }
 }
