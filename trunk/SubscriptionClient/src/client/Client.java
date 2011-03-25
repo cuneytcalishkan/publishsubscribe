@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Message;
@@ -26,7 +27,7 @@ import model.Subscriber;
  *
  * @author Natan
  */
-public class Client implements Runnable {
+public class Client extends Observable implements Runnable {
 
     private Configure configure;
     private Ponger ponger;
@@ -107,6 +108,7 @@ public class Client implements Runnable {
                 }
                 Message mes = new Message(new Date(Long.parseLong(line[0])), new Time(Long.parseLong(line[1])), content, Integer.parseInt(line[2]));
                 subscriber.addMessage(mes);
+                changed();
                 System.out.println("Received: " + mes);
             }
         } catch (IOException ex) {
@@ -116,6 +118,11 @@ public class Client implements Runnable {
 
     }
 
+    private void changed() {
+        setChanged();
+        notifyObservers();
+    }
+
     public void finish() {
         try {
             ser.close();
@@ -123,5 +130,13 @@ public class Client implements Runnable {
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
     }
 }
