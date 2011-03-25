@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Message;
 import model.Subscriber;
 
@@ -37,10 +38,9 @@ public class Client extends Observable implements Runnable {
     public Client() {
         try {
             configure = new Configure();
-            
-
         } catch (IOException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Konfigurasyon dosyasına erişilemiyor.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
@@ -71,17 +71,21 @@ public class Client extends Observable implements Runnable {
                 listenerThread.start();
 
             } else {
+                JOptionPane.showMessageDialog(null, "Bağlanılacak sunucu bile yok.\n Eski mesajlarla idare et.");
                 //TODO server yok, ne bok yiyeceğiz?
             }
             conn.close();
         } catch (UnknownHostException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Internet bağlantısı sorunu var gibi.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Sunucuya bağlanılamıyor.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (SQLException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
@@ -98,17 +102,17 @@ public class Client extends Observable implements Runnable {
                 for (int i = 4; i < line.length; i++) {
                     content += line[i];
                 }
-/*
-                while((lineString = br.readLine()) != null && !lineString.equals("EOF")){
-                    content += line;
-                }*/
+
+                while((lineString = br.readLine()) != null && !lineString.equals("/EOL/")){
+                    content += "\r\n" + lineString;
+                }
                 Message mes = new Message(new Date(Long.parseLong(line[0])), new Time(Long.parseLong(line[1])), content, Integer.parseInt(line[2]));
                 subscriber.addMessage(mes);
                 changed();
-                System.out.println("Received: " + mes);
             }
         } catch (IOException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Bağlantı Gitti.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
 
