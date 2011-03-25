@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T19:14:46</date>
+  <millis>1301076886135</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>server.ConnectDB</class>
+  <method>getConnection</method>
+  <thread>10</thread>
+  <message>Unsupported character encoding 'utf8_general_ci'.</message>
+</record>
