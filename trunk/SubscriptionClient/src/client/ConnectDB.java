@@ -9,7 +9,7 @@ public class ConnectDB {
 
     private static Connection connection;
 
-    public static Connection getConnection(String username, String password) throws SQLException {
+    public static Connection getConnection(String host, String username, String password) throws SQLException {
         if (connection == null || connection.isClosed()) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -17,7 +17,7 @@ public class ConnectDB {
                 System.out.println(e);
                 SLogger.getLogger().log(Level.SEVERE, e.getMessage());
             }
-            String url = "jdbc:mysql://mysql02.natro.com:3306/orenux";
+            String url = "jdbc:mysql://" + host;
             try {
                 connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
