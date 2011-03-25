@@ -4,7 +4,12 @@
  */
 package server;
 
-import java.net.InetAddress;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -62,11 +67,20 @@ public class SubscriptionServer extends Observable {
             PreparedStatement ps = connection.prepareStatement(truncate);
             ps.executeUpdate();
             ps = connection.prepareStatement(sql);
-            ps.setString(1, InetAddress.getLocalHost().getHostAddress());
+
+            URL url = new java.net.URL("http://whatismyip.com/automation/n09230945.asp");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            ps.setString(1, br.readLine());
             ps.setInt(2, port);
             ps.executeUpdate();
             connection.close();
+        } catch (MalformedURLException ex) {
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (UnknownHostException ex) {
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
+        } catch (IOException ex) {
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (SQLException ex) {
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
