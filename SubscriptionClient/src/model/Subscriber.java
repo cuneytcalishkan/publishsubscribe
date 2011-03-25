@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.util.ArrayList;
@@ -22,12 +21,19 @@ public class Subscriber {
         comments = new ArrayList<Message>();
     }
 
-    public void addSignal(Message mes){
+    public void addMessage(Message message) {
+        if (message.getCategory() == Message.SIGNAL) {
+            addSignal(message);
+        } else {
+            addComment(message);
+        }
+    }
+
+    private void addSignal(Message mes) {
         signals.add(mes);
     }
 
-    public void addComment(Message mes){
+    private void addComment(Message mes) {
         comments.add(mes);
     }
-
 }
