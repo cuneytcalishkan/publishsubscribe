@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
@@ -17,8 +20,9 @@ public class ReaderListModel implements ListModel {
 
     private List<Reader> collection;
 
-    public ReaderListModel(List<Reader> collection) {
-        this.collection = collection;
+    public ReaderListModel(Reader[] collection) {
+        this.collection = new ArrayList<Reader>();
+        this.collection.addAll(Arrays.asList(collection));
     }
 
     public int getSize() {

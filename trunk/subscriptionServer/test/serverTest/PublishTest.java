@@ -62,9 +62,8 @@ public class PublishTest {
             Configure config = new Configure();
             String dbUsername = config.getProperty("dbUsername");
             String dbPassword = config.getProperty("dbPassword");
-            int pingInterval = Integer.parseInt(config.getProperty("pingInterval"));
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
-            SubscriptionServer ss = new SubscriptionServer(serverPort, pingInterval, dbUsername, dbPassword);
+            SubscriptionServer ss = new SubscriptionServer(serverPort, dbUsername, dbPassword);
             ss.broadcastMessage("test Message4", 1);
             ss.unpublishIPOnDB();
         } catch (IOException ex) {

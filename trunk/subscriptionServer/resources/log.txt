@@ -2,13 +2,13 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2011-03-25T19:14:46</date>
-  <millis>1301076886135</millis>
+  <date>2011-03-25T21:53:42</date>
+  <millis>1301086422347</millis>
   <sequence>0</sequence>
   <logger>subscription.server</logger>
   <level>SEVERE</level>
-  <class>server.ConnectDB</class>
-  <method>getConnection</method>
+  <class>server.ConnectionHandler</class>
+  <method>run</method>
   <thread>10</thread>
-  <message>Unsupported character encoding 'utf8_general_ci'.</message>
+  <message>socket closed</message>
 </record>

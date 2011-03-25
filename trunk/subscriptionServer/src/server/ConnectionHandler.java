@@ -30,17 +30,10 @@ public class ConnectionHandler implements Runnable {
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String line;
-            while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
-                Reader rdr = new Reader(socket.getInetAddress().getHostAddress(),
-                        Integer.parseInt(tokens[0]),
-                        Integer.parseInt(tokens[1]),
-                        tokens[2]);
-                ss.addReader(rdr);
-                ss.changed();
-                System.out.println(rdr + " has been added to reader list");
-            }
-            socket.close();
+            line = reader.readLine();
+            Reader rdr = new Reader(socket.getInetAddress().getHostAddress(), line);
+            ss.getReaderList().put(rdr, socket);
+            ss.changed();
         } catch (IOException ex) {
             System.out.println(ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());

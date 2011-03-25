@@ -17,10 +17,9 @@ public class Main {
         try {
             Configure config = new Configure();
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
-            int pingInterval = Integer.parseInt(config.getProperty("pingInterval"));
             String username = config.getProperty("dbUsername");
             String password = config.getProperty("dbPassword");
-            SubscriptionServer ss = new SubscriptionServer(serverPort, pingInterval, username, password);
+            SubscriptionServer ss = new SubscriptionServer(serverPort, username, password);
             Thread.sleep(3000);
             ss.broadcastMessage("server sending message to client", 2);
             Object sync = new Object();

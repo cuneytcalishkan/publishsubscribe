@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import model.Message;
 import model.Reader;
@@ -52,28 +53,32 @@ public class MessageSender implements Runnable {
                     eTime,
                     msg, cat);
 
-            for (Reader reader : ss.getReaderList()) {
-                try {
-                    Socket socket = new Socket(reader.getAddress(), reader.getPort());
-                    PrintWriter pw = new PrintWriter(socket.getOutputStream());
-                    pw.println(message.toString());
-                    pw.flush();
-                    pw.close();
-                    socket.close();
-                } catch (UnknownHostException ex) {
-                    System.out.println(ex);
+            for (Iterator<Reader> it = ss.getReaderList().keySet().iterator(); it.hasNext();) {
+                Reader reader = it.next();
+                Socket socket = ss.getReaderList().get(reader);
+                if (socket != null) {
+                    try {
+                        PrintWriter pw = new PrintWriter(socket.getOutputStream());
+                        pw.println(message.toString());
+                        pw.println("/EOL/");
+                        pw.flush();
+                    } catch (UnknownHostException ex) {
+                        System.out.println(ex);
+                        removal.add(reader);
+                        SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
+                    } catch (IOException ex) {
+                        System.out.println(ex);
+                        removal.add(reader);
+                        SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
+                    }
+                } else {
                     removal.add(reader);
-                    SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-                } catch (IOException ex) {
-                    System.out.println(ex);
-                    removal.add(reader);
-                    SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
                 }
             }
-            if (ss.getReaderList().removeAll(removal)) {
-                ss.changed();
+            for (Reader reader : removal) {
+                ss.getReaderList().remove(reader);
             }
-
+            ss.changed();
         } catch (SQLException ex) {
             System.out.println(ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
