@@ -54,17 +54,21 @@ public class MessageSender implements Runnable {
 
             for (Reader reader : ss.getReaderList()) {
                 try {
-                    PrintWriter pw = new PrintWriter(reader.getSocket().getOutputStream());
-                    pw.println(message.toString());
-                    pw.println("/EOL/");
-                    pw.flush();
+                    if (reader.getSocket().isClosed()) {
+                        removal.add(reader);
+                    } else {
+                        PrintWriter pw = new PrintWriter(reader.getSocket().getOutputStream());
+                        pw.println(message.toString());
+                        pw.println("/EOL/");
+                        pw.flush();
+                    }
                 } catch (UnknownHostException ex) {
                     System.out.println(ex);
-                    removal.add(reader);
+                    //removal.add(reader);
                     SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
                 } catch (IOException ex) {
                     System.out.println(ex);
-                    removal.add(reader);
+
                     SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
                 }
 
