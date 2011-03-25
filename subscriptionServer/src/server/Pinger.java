@@ -9,6 +9,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.TimerTask;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Reader;
 
 /**
@@ -26,7 +29,20 @@ public class Pinger extends TimerTask {
                 removal.add(reader);
             } catch (IOException ioe) {
                 removal.add(reader);
+                Logger logger = Logger.getLogger(Pinger.class.getName());
+                try {
+                    FileHandler handler = new FileHandler("resources/log.txt", true);
+                    logger.addHandler(handler);
+                    logger.log(Level.SEVERE, ioe.getMessage(), ioe);
+                } catch (IOException ex) {
+                    Logger.getLogger(Pinger.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SecurityException ex) {
+                    Logger.getLogger(Pinger.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        }
+        for (Reader rem : removal) {
+            SubscriptionServer.getReaderList().remove(rem);
         }
     }
 }
