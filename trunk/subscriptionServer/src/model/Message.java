@@ -61,6 +61,6 @@ public class Message {
 
     @Override
     public String toString() {
-        return date + "|" + time + "|" + category + "|" + content;
+        return date.getTime() + "|" + time.getTime() + "|" + category + "|" + content;
     }
 }

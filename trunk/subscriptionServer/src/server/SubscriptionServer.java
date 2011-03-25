@@ -47,7 +47,7 @@ public class SubscriptionServer {
         publishIPOnDB();
     }
 
-    public void unpublishIPInDB() {
+    public void unpublishIPOnDB() {
         try {
             String sql = "TRUNCATE TABLE serverURL";
             Connection connection = ConnectDB.getConnection(username, password);
@@ -79,6 +79,7 @@ public class SubscriptionServer {
 
     public void broadcastMessage(String msg, int cat) {
         try {
+            ArrayList<Reader> removal = new ArrayList<Reader>();
             Connection connection = ConnectDB.getConnection(username, password);
             String sql = "INSERT INTO newsAndComments (`content`,`category`,`eDate`,`eTime`) VALUES(?,?,?,?)";
             Date eDate = new Date(System.currentTimeMillis());
@@ -103,11 +104,14 @@ public class SubscriptionServer {
                     pw.close();
                     socket.close();
                 } catch (UnknownHostException ex) {
+                    removal.add(reader);
                     SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
                 } catch (IOException ex) {
+                    removal.add(reader);
                     SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
                 }
             }
+            readerList.removeAll(removal);
 
         } catch (SQLException ex) {
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
