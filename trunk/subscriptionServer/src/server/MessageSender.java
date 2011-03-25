@@ -69,10 +69,9 @@ public class MessageSender implements Runnable {
                 }
 
             }
-            for (Reader reader : removal) {
-                ss.getReaderList().remove(reader);
+            if (ss.getReaderList().removeAll(removal)) {
+                ss.changed();
             }
-            ss.changed();
         } catch (SQLException ex) {
             System.out.println(ex);
             JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n Mesaj veritabanına eklenemedi.");
