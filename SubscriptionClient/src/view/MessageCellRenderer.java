@@ -23,7 +23,7 @@ public class MessageCellRenderer extends DefaultListCellRenderer {
         if (value instanceof Message) {
             label.setHorizontalTextPosition(JLabel.LEFT);
             label.setVerticalTextPosition(JLabel.TOP);
-            label.setText(((Message) value).toString());
+            label.setText("<html>" + ((Message) value).toString());
         }
 
         return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
