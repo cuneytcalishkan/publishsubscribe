@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import model.Reader;
 import server.Configure;
 import server.SLogger;
 import server.SubscriptionServer;
@@ -39,12 +40,11 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
         try {
             Configure config = new Configure();
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
-            int pingInterval = Integer.parseInt(config.getProperty("pingInterval"));
             String username = config.getProperty("dbUsername");
             String password = config.getProperty("dbPassword");
-            server = new SubscriptionServer(serverPort, pingInterval, username, password);
+            server = new SubscriptionServer(serverPort, username, password);
             server.addObserver(this);
-            readersList.setModel(new ReaderListModel(server.getReaderList()));
+            readersList.setModel(new ReaderListModel(server.getReaderList().keySet().toArray(new Reader[0])));
         } catch (IOException ex) {
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
@@ -225,6 +225,6 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
     // End of variables declaration//GEN-END:variables
 
     public void update(Observable o, Object arg) {
-        readersList.setModel(new ReaderListModel(server.getReaderList()));
+        readersList.setModel(new ReaderListModel(server.getReaderList().keySet().toArray(new Reader[0])));
     }
 }

@@ -9,15 +9,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
-import java.util.Timer;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -29,17 +28,15 @@ import model.Reader;
  */
 public class SubscriptionServer extends Observable {
 
-    private ArrayList<Reader> readerList = new ArrayList<Reader>();
+    private HashMap<Reader, Socket> readerList = new HashMap<Reader, Socket>();
     private int port;
-    private int pingInterval;
     private Listener listener;
     private Executor executor;
     private String username;
     private String password;
 
-    public SubscriptionServer(int p, int interval, String uname, String pwd) {
+    public SubscriptionServer(int p, String uname, String pwd) {
         port = p;
-        pingInterval = interval;
         username = uname;
         password = pwd;
         executor = Executors.newCachedThreadPool();
@@ -49,8 +46,6 @@ public class SubscriptionServer extends Observable {
     private void init() {
         listener = new Listener(port, this);
         executor.execute(listener);
-        Timer timer = new Timer(true);
-        timer.schedule(new Pinger(this), new Date(System.currentTimeMillis() + 10000), pingInterval * 60000);
         publishIPOnDB();
     }
 
@@ -97,14 +92,6 @@ public class SubscriptionServer extends Observable {
         notifyObservers();
     }
 
-    public ArrayList<Reader> getReaderList() {
-        return readerList;
-    }
-
-    public void addReader(Reader newReader) {
-        readerList.add(newReader);
-    }
-
     public Executor getExecutor() {
         return executor;
     }
@@ -129,14 +116,6 @@ public class SubscriptionServer extends Observable {
         this.password = password;
     }
 
-    public int getPingInterval() {
-        return pingInterval;
-    }
-
-    public void setPingInterval(int pingInterval) {
-        this.pingInterval = pingInterval;
-    }
-
     public int getPort() {
         return port;
     }
@@ -151,5 +130,13 @@ public class SubscriptionServer extends Observable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public HashMap<Reader, Socket> getReaderList() {
+        return readerList;
+    }
+
+    public void setReaderList(HashMap<Reader, Socket> readerList) {
+        this.readerList = readerList;
     }
 }
