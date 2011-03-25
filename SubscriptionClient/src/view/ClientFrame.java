@@ -203,6 +203,6 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     }
 
     public void setConnectionButtonVisible(boolean aFlag) {
-        reconnectButton.setVisible(aFlag);
+        reconnectButton.setEnabled(aFlag);
     }
 }
