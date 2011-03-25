@@ -84,7 +84,7 @@ public class Client extends Observable implements Runnable {
         try {
             Connection conn = ConnectDB.getConnection(configure.getProperty("dbURL"), username, password);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM newsAndComments");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM newsAndComments ORDER BY `id` ASC");
             subscriber = new Subscriber();
             while (rs.next()) {
                 Message message = new Message(rs.getDate(4), rs.getTime(5), rs.getString(2), rs.getInt(3));

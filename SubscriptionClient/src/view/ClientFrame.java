@@ -99,6 +99,11 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
 
         reconnectButton.setText("Bağlantı Yenile");
         reconnectButton.setEnabled(false);
+        reconnectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reconnectButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -162,12 +167,17 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         updateMessageList();
     }//GEN-LAST:event_commentsButtonActionPerformed
 
+    private void reconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reconnectButtonActionPerformed
+        client.connect();
+    }//GEN-LAST:event_reconnectButtonActionPerformed
+
     private void updateMessageList() {
         if (selected == Message.SIGNAL) {
             messageList.setModel(new MessageModel(client.getSignals()));
         } else {
             messageList.setModel(new MessageModel(client.getComments()));
         }
+        messageList.ensureIndexIsVisible(messageList.getModel().getSize() - 1);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton commentsButton;
@@ -197,7 +207,8 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-                JOptionPane.showMessageDialog(null, list.getSelectedValue().toString(), "Detaylı Bilgi", JOptionPane.PLAIN_MESSAGE);
+                Message msg = (Message) list.getSelectedValue();
+                JOptionPane.showMessageDialog(null, msg.getContent(), msg.getDate() + " " + msg.getTime(), JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
