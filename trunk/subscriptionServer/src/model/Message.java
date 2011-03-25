@@ -17,7 +17,7 @@ public class Message {
     private Time time;
     private String content;
     private int category;
-    public static final int NEWS = 1;
+    public static final int SIGNALS = 1;
     public static final int COMMENT = 2;
 
     public Message(Date date, Time time, String content, int category) {
