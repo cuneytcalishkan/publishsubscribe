@@ -71,6 +71,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         messageList = new javax.swing.JList();
         viewSignalsButton = new javax.swing.JButton();
         commentsButton = new javax.swing.JButton();
+        reconnectButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,6 +95,9 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             }
         });
 
+        reconnectButton.setText("Bağlantı Yenile");
+        reconnectButton.setEnabled(false);
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -106,7 +110,9 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(viewSignalsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(commentsButton)))
+                        .addComponent(commentsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                        .addComponent(reconnectButton)))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
@@ -115,7 +121,8 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewSignalsButton)
-                    .addComponent(commentsButton))
+                    .addComponent(commentsButton)
+                    .addComponent(reconnectButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,6 +196,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     private javax.swing.JList messageList;
     private javax.swing.JScrollPane messagesScrollPane;
     private javax.swing.JCheckBox playSoundCheckBox;
+    private javax.swing.JButton reconnectButton;
     private javax.swing.JButton viewSignalsButton;
     // End of variables declaration//GEN-END:variables
 

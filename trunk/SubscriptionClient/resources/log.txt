@@ -228,3 +228,18 @@
   <thread>10</thread>
   <message>No database selected</message>
 </record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T23:14:35</date>
+  <millis>1301091275939</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>run</method>
+  <thread>10</thread>
+  <message>Connection reset</message>
+</record>
+</log>

@@ -54,6 +54,8 @@
                           <Component id="viewSignalsButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="commentsButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="236" max="32767" attributes="0"/>
+                          <Component id="reconnectButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -67,6 +69,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="viewSignalsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="commentsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="reconnectButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="messagesScrollPane" pref="277" max="32767" attributes="0"/>
@@ -118,6 +121,12 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="commentsButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="reconnectButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ba&#x11f;lant&#x131; Yenile"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
