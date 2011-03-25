@@ -20,9 +20,11 @@ public class Listener implements Runnable {
     private int port;
     private ServerSocket serverSocket;
     private Executor executor;
+    private SubscriptionServer ss;
 
-    public Listener(int port) {
+    public Listener(int port, SubscriptionServer ss) {
         this.port = port;
+        this.ss = ss;
         executor = Executors.newCachedThreadPool();
     }
 
@@ -32,7 +34,7 @@ public class Listener implements Runnable {
             serverSocket = new ServerSocket(port);
             while (true) {
                 Socket s = serverSocket.accept();
-                ConnectionHandler ch = new ConnectionHandler(s);
+                ConnectionHandler ch = new ConnectionHandler(s, ss);
                 executor.execute(ch);
             }
         } catch (IOException ex) {

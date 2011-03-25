@@ -4,32 +4,29 @@
  */
 package server;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Timer;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
-import model.Message;
 import model.Reader;
 
 /**
  *
  * @author CUNEYT
  */
-public class SubscriptionServer {
+public class SubscriptionServer extends Observable {
 
-    private static ArrayList<Reader> readerList = new ArrayList<Reader>();
+    private ArrayList<Reader> readerList = new ArrayList<Reader>();
     private int port;
+    private int pingInterval;
     private Listener listener;
     private Executor executor;
     private String username;
@@ -37,13 +34,18 @@ public class SubscriptionServer {
 
     public SubscriptionServer(int p, int interval, String uname, String pwd) {
         port = p;
+        pingInterval = interval;
         username = uname;
         password = pwd;
-        executor = Executors.newSingleThreadExecutor();
-        listener = new Listener(port);
+        executor = Executors.newCachedThreadPool();
+        init();
+    }
+
+    private void init() {
+        listener = new Listener(port, this);
         executor.execute(listener);
         Timer timer = new Timer(true);
-        timer.schedule(new Pinger(), new Date(System.currentTimeMillis() + 10000), interval * 60000);
+        timer.schedule(new Pinger(this), new Date(System.currentTimeMillis() + 10000), pingInterval * 60000);
         publishIPOnDB();
     }
 
@@ -63,9 +65,12 @@ public class SubscriptionServer {
     private void publishIPOnDB() {
         try {
             Connection connection = ConnectDB.getConnection(username, password);
+            String truncate = "TRUNCATE TABLE serverURL";
             String sql = "INSERT INTO serverURL (`url`,`port`) VALUES(?,?)";
-            PreparedStatement ps = connection.prepareCall(sql);
-            ps.setString(1, InetAddress.getLocalHost().toString());
+            PreparedStatement ps = connection.prepareStatement(truncate);
+            ps.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, InetAddress.getLocalHost().getHostAddress());
             ps.setInt(2, port);
             ps.executeUpdate();
             connection.close();
@@ -78,47 +83,67 @@ public class SubscriptionServer {
     }
 
     public void broadcastMessage(String msg, int cat) {
-        try {
-            ArrayList<Reader> removal = new ArrayList<Reader>();
-            Connection connection = ConnectDB.getConnection(username, password);
-            String sql = "INSERT INTO newsAndComments (`content`,`category`,`eDate`,`eTime`) VALUES(?,?,?,?)";
-            Date eDate = new Date(System.currentTimeMillis());
-            Time eTime = new Time(System.currentTimeMillis());
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, msg);
-            st.setInt(2, cat);
-            st.setDate(3, eDate);
-            st.setTime(4, eTime);
-            st.executeUpdate();
-            connection.close();
-            Message message = new Message(eDate,
-                    eTime,
-                    msg, cat);
-
-            for (Reader reader : readerList) {
-                try {
-                    Socket socket = new Socket(reader.getAddress(), reader.getPort());
-                    PrintWriter pw = new PrintWriter(socket.getOutputStream());
-                    pw.println(message.toString());
-                    pw.flush();
-                    pw.close();
-                    socket.close();
-                } catch (UnknownHostException ex) {
-                    removal.add(reader);
-                    SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-                } catch (IOException ex) {
-                    removal.add(reader);
-                    SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-                }
-            }
-            readerList.removeAll(removal);
-
-        } catch (SQLException ex) {
-            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-        }
+        executor.execute(new MessageSender(this, msg, cat));
     }
 
-    public static ArrayList<Reader> getReaderList() {
+    public void changed() {
+        setChanged();
+        notifyObservers();
+    }
+
+    public ArrayList<Reader> getReaderList() {
         return readerList;
+    }
+
+    public void addReader(Reader newReader) {
+        readerList.add(newReader);
+    }
+
+    public Executor getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(Executor executor) {
+        this.executor = executor;
+    }
+
+    public Listener getListener() {
+        return listener;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getPingInterval() {
+        return pingInterval;
+    }
+
+    public void setPingInterval(int pingInterval) {
+        this.pingInterval = pingInterval;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

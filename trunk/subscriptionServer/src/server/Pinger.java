@@ -17,19 +17,27 @@ import model.Reader;
  */
 public class Pinger extends TimerTask {
 
+    private SubscriptionServer ss;
+
+    public Pinger(SubscriptionServer ss) {
+        this.ss = ss;
+    }
+
     public void run() {
         ArrayList<Reader> removal = new ArrayList<Reader>();
-        for (Reader reader : SubscriptionServer.getReaderList()) {
+        for (Reader reader : ss.getReaderList()) {
             try {
                 Socket s = new Socket(reader.getAddress(), reader.getPingPort());
                 s.close();
             } catch (UnknownHostException ex) {
+                SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
                 removal.add(reader);
             } catch (IOException ioe) {
                 removal.add(reader);
-                SLogger.getLogger().log(Level.SEVERE, ioe.getMessage(), ioe);
+                SLogger.getLogger().log(Level.SEVERE, ioe.getMessage());
             }
         }
-        SubscriptionServer.getReaderList().removeAll(removal);
+        ss.getReaderList().removeAll(removal);
+        ss.changed();
     }
 }
