@@ -12,6 +12,8 @@ package view;
 
 import client.Client;
 import com.sun.media.sound.JavaSoundAudioClip;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Message;
@@ -45,6 +49,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             client.addObserver(this);
             client.start();
             sound = new JavaSoundAudioClip(new FileInputStream(new File("resources/newMessage.wav")));
+            messageList.addMouseListener(new ActionJList(messageList));
             updateMessageList();
         } catch (IOException ex) {
             Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -192,5 +197,21 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             sound.play();
         }
         updateMessageList();
+    }
+
+    class ActionJList extends MouseAdapter {
+
+        protected JList list;
+
+        public ActionJList(JList l) {
+            list = l;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                JOptionPane.showMessageDialog(null, list.getSelectedValue().toString(), "Detaylı Bilgi", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
     }
 }
