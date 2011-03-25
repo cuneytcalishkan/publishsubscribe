@@ -54,3 +54,78 @@
   <message>Connection refused: connect</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T21:03:21</date>
+  <millis>1301083401003</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>start</method>
+  <thread>10</thread>
+  <message>Connection timed out: connect</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T21:45:24</date>
+  <millis>1301085924037</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>start</method>
+  <thread>10</thread>
+  <message>Connection timed out: connect</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T21:48:11</date>
+  <millis>1301086091228</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>run</method>
+  <thread>10</thread>
+  <message>Socket is closed</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T21:50:36</date>
+  <millis>1301086236754</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>run</method>
+  <thread>10</thread>
+  <message>Socket is closed</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T21:51:31</date>
+  <millis>1301086291939</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>run</method>
+  <thread>10</thread>
+  <message>Socket is closed</message>
+</record>
+</log>

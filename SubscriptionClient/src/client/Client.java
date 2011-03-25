@@ -31,14 +31,13 @@ import model.Subscriber;
 public class Client extends Observable implements Runnable {
 
     private Configure configure;
-    private Ponger ponger;
     private Subscriber subscriber;
-    private ServerSocket ser;
+    private Socket sock;
 
     public Client() {
         try {
             configure = new Configure();
-            subscriber = new Subscriber();
+            
 
         } catch (IOException ex) {
             System.out.println(ex);
@@ -49,14 +48,12 @@ public class Client extends Observable implements Runnable {
     public void start() {
         // constructor'a parametre olarak gelecek bağlanma ekranından sonra.
         try {
-            ponger = new Ponger(Integer.parseInt(configure.getProperty("pongPort")));
-            Thread pongerThread = new Thread(ponger);
-            pongerThread.start();
             String username = "okuyucu";
             String password = "oku123yucu";
             Connection conn = ConnectDB.getConnection(username, password);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM newsAndComments");
+            subscriber = new Subscriber();
             while (rs.next()) {
                 Message message = new Message(rs.getDate(4), rs.getTime(5), rs.getString(2), rs.getInt(3));
                 subscriber.addMessage(message);
@@ -66,14 +63,10 @@ public class Client extends Observable implements Runnable {
             if (rs.next()) {
                 String serverURL = rs.getString(2);
                 int serverPort = rs.getInt(3);
-                Socket sock = new Socket(serverURL, serverPort);
+                sock = new Socket(serverURL, serverPort);
                 PrintWriter pw = new PrintWriter(sock.getOutputStream());
-                pw.println(configure.getProperty("port") + ","
-                        + configure.getProperty("pongPort") + ","
-                        + username);
+                pw.println(username);
                 pw.flush();
-                pw.close();
-                sock.close();
                 Thread listenerThread = new Thread(this);
                 listenerThread.start();
 
@@ -97,16 +90,18 @@ public class Client extends Observable implements Runnable {
     public void run() {
 
         try {
-            ser = new ServerSocket(Integer.parseInt(configure.getProperty("port")));
             while (true) {
-                Socket sock = ser.accept();
                 BufferedReader br = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-                String[] line = br.readLine().split(":");
-                sock.close();
+                String lineString = br.readLine();
+                String[] line = lineString.split(":");
                 String content = line[3];
                 for (int i = 4; i < line.length; i++) {
                     content += line[i];
                 }
+/*
+                while((lineString = br.readLine()) != null && !lineString.equals("EOF")){
+                    content += line;
+                }*/
                 Message mes = new Message(new Date(Long.parseLong(line[0])), new Time(Long.parseLong(line[1])), content, Integer.parseInt(line[2]));
                 subscriber.addMessage(mes);
                 changed();
@@ -126,8 +121,7 @@ public class Client extends Observable implements Runnable {
 
     public void finish() {
         try {
-            ser.close();
-            ponger.finish();
+            sock.close();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
