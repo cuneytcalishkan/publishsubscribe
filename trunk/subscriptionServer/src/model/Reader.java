@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.net.Socket;
+
 /**
  *
  * @author CUNEYT
@@ -12,10 +14,12 @@ public class Reader {
 
     private String address;
     private String username;
+    private Socket socket;
 
-    public Reader(String address, String username) {
+    public Reader(String address, String username, Socket s) {
         this.address = address;
         this.username = username;
+        this.socket = s;
     }
 
     public String getAddress() {
@@ -34,9 +38,13 @@ public class Reader {
         this.username = username;
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
     @Override
     public String toString() {
-        return "Address=" + address + " username=" + username;
+        return "Kullanıcı Adı :" + username + " IP:" + address;
     }
 
     @Override
@@ -54,14 +62,18 @@ public class Reader {
         if ((this.username == null) ? (other.username != null) : !this.username.equals(other.username)) {
             return false;
         }
+        if (this.socket != other.socket && (this.socket == null || !this.socket.equals(other.socket))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + (this.address != null ? this.address.hashCode() : 0);
-        hash = 67 * hash + (this.username != null ? this.username.hashCode() : 0);
+        int hash = 7;
+        hash = 47 * hash + (this.address != null ? this.address.hashCode() : 0);
+        hash = 47 * hash + (this.username != null ? this.username.hashCode() : 0);
+        hash = 47 * hash + (this.socket != null ? this.socket.hashCode() : 0);
         return hash;
     }
 }
