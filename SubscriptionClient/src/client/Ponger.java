@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +17,7 @@ import java.util.logging.Logger;
 public class Ponger implements Runnable {
 
     private int port;
+    private ServerSocket ser;
 
     public Ponger(int port) {
         this.port = port;
@@ -25,14 +25,17 @@ public class Ponger implements Runnable {
 
     public void run() {
         try {
-            ServerSocket ser = new ServerSocket(port);
+            ser = new ServerSocket(port);
             Socket sock = ser.accept();
             sock.close();
         } catch (IOException ex) {
             System.out.println(ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
+    }
 
+    public void finish() throws IOException{
+        ser.close();
     }
 
 }
