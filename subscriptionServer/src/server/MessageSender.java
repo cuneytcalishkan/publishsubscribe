@@ -16,6 +16,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import model.Message;
 import model.Reader;
 
@@ -81,6 +82,7 @@ public class MessageSender implements Runnable {
             ss.changed();
         } catch (SQLException ex) {
             System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n Mesaj veritabanına eklenemedi, fakat kullanıcılara gönderildi.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
