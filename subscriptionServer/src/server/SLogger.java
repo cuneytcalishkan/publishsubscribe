@@ -15,9 +15,10 @@ import java.util.logging.Logger;
  */
 public class SLogger {
 
-    public static Logger getLogger() {
+    private static final Logger logger;
 
-        java.util.logging.Logger logger = java.util.logging.Logger.getLogger("subscription.server");
+    static {
+        logger = Logger.getLogger("subscription.server");
         try {
             FileHandler handler = new FileHandler("resources/log.txt", true);
             logger.addHandler(handler);
@@ -26,6 +27,9 @@ public class SLogger {
         } catch (SecurityException ex) {
             Logger.getLogger(SLogger.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static Logger getLogger() {
         return logger;
     }
 }
