@@ -43,8 +43,21 @@ public class PublishTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
+//    @Test
+//    public void publishIPOnDB() {
+//        try {
+//            Configure config = new Configure();
+//            String dbUsername = config.getProperty("dbUsername");
+//            String dbPassword = config.getProperty("dbPassword");
+//            int pingInterval = Integer.parseInt(config.getProperty("pingInterval"));
+//            int serverPort = Integer.parseInt(config.getProperty("serverPort"));
+//            SubscriptionServer ss = new SubscriptionServer(serverPort, pingInterval, dbUsername, dbPassword);
+//        } catch (IOException ex) {
+//            Logger.getLogger(PublishTest.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     @Test
-    public void publishIPOnDB() {
+    public void sendMessage() {
         try {
             Configure config = new Configure();
             String dbUsername = config.getProperty("dbUsername");
@@ -52,9 +65,10 @@ public class PublishTest {
             int pingInterval = Integer.parseInt(config.getProperty("pingInterval"));
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
             SubscriptionServer ss = new SubscriptionServer(serverPort, pingInterval, dbUsername, dbPassword);
+            ss.broadcastMessage("test Message", 1);
+            ss.unpublishIPInDB();
         } catch (IOException ex) {
             Logger.getLogger(PublishTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

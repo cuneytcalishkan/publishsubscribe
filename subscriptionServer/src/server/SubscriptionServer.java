@@ -63,7 +63,7 @@ public class SubscriptionServer {
     private void publishIPOnDB() {
         try {
             Connection connection = ConnectDB.getConnection(username, password);
-            String sql = "INSERT INTO serverURL (url,port) VALUES(?,?)";
+            String sql = "INSERT INTO serverURL (`url`,`port`) VALUES(?,?)";
             PreparedStatement ps = connection.prepareCall(sql);
             ps.setString(1, InetAddress.getLocalHost().toString());
             ps.setInt(2, port);
@@ -80,8 +80,7 @@ public class SubscriptionServer {
     public void broadcastMessage(String msg, int cat) {
         try {
             Connection connection = ConnectDB.getConnection(username, password);
-            String sql = "INSERT INTO newsAndComments (content,category,eDate,eTime)"
-                    + " VALUES (?,?,?,?)";
+            String sql = "INSERT INTO newsAndComments (`content`,`category`,`eDate`,`eTime`) VALUES(?,?,?,?)";
             Date eDate = new Date(System.currentTimeMillis());
             Time eTime = new Time(System.currentTimeMillis());
             PreparedStatement st = connection.prepareStatement(sql);
@@ -89,7 +88,7 @@ public class SubscriptionServer {
             st.setInt(2, cat);
             st.setDate(3, eDate);
             st.setTime(4, eTime);
-            st.executeUpdate(sql);
+            st.executeUpdate();
             connection.close();
             Message message = new Message(eDate,
                     eTime,
