@@ -17,7 +17,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Message;
@@ -31,16 +30,13 @@ public class Client implements Runnable {
 
     private Configure configure;
     private Ponger ponger;
-    private Connection conn;
-    private String serverURL;
-    private int serverPort;
-    private Thread listenerThread, pongerThread;
     private Subscriber subscriber;
+
+    private ServerSocket ser;
 
     public Client() {
         try {
             configure = new Configure();
-            ponger = new Ponger(Integer.parseInt(configure.getProperty("pongPort")));
             subscriber = new Subscriber();
 
         } catch (IOException ex) {
@@ -52,11 +48,12 @@ public class Client implements Runnable {
     public void start() {
         // constructor'a parametre olarak gelecek bağlanma ekranından sonra.
         try {
-            pongerThread = new Thread(ponger);
+            ponger = new Ponger(Integer.parseInt(configure.getProperty("pongPort")));
+            Thread pongerThread = new Thread(ponger);
             pongerThread.start();
             String username = "okuyucu";
             String password = "oku123yucu";
-            conn = ConnectDB.getConnection(username, password);
+            Connection conn = ConnectDB.getConnection(username, password);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM newsAndComments");
             while (rs.next()) {
@@ -65,10 +62,11 @@ public class Client implements Runnable {
             }
 
             rs = stmt.executeQuery("SELECT * FROM serverURL LIMIT 1");
+            conn.close();
             rs.next();
             if (rs != null) {
-                serverURL = rs.getString(2);
-                serverPort = rs.getInt(3);
+                String serverURL = rs.getString(2);
+                int serverPort = rs.getInt(3);
                 Socket sock = new Socket(serverURL, serverPort);
                 PrintWriter pw = new PrintWriter(sock.getOutputStream());
                 pw.println(configure.getProperty("port") + ","
@@ -77,7 +75,7 @@ public class Client implements Runnable {
                 pw.flush();
                 pw.close();
                 sock.close();
-                listenerThread = new Thread(this);
+                Thread listenerThread = new Thread(this);
                 listenerThread.start();
 
             } else {
@@ -98,7 +96,7 @@ public class Client implements Runnable {
     @Override
     public void run() {
         try {
-            ServerSocket ser = new ServerSocket(Integer.parseInt(configure.getProperty("port")));
+            ser = new ServerSocket(Integer.parseInt(configure.getProperty("port")));
             Socket sock = ser.accept();
             BufferedReader br = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             String[] line = br.readLine().split("|");
@@ -112,6 +110,15 @@ public class Client implements Runnable {
         } catch (IOException ex) {
             System.out.println(ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
+        } 
+    }
+
+    public void finish(){
+        try {
+            ser.close();
+            ponger.finish();
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
