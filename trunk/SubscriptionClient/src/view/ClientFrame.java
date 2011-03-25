@@ -47,7 +47,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
 
     private void init() {
         try {
-            client = new Client();
+            client = new Client(username, password, this);
             client.addObserver(this);
             client.start();
             sound = new JavaSoundAudioClip(new FileInputStream(new File("resources/newMessage.wav")));
