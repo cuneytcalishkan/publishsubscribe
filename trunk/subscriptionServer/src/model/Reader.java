@@ -56,6 +56,6 @@ public class Reader {
 
     @Override
     public String toString() {
-        return "Reader{" + "address=" + address + "username=" + username + '}';
+        return "Address=" + address + " username=" + username;
     }
 }
