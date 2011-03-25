@@ -19,9 +19,11 @@ public class ConnectionHandler implements Runnable {
 
     private Socket socket;
     private BufferedReader reader;
+    private SubscriptionServer ss;
 
-    public ConnectionHandler(Socket s) {
+    public ConnectionHandler(Socket s, SubscriptionServer ss) {
         this.socket = s;
+        this.ss = ss;
     }
 
     public void run() {
@@ -30,11 +32,13 @@ public class ConnectionHandler implements Runnable {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                Reader rdr = new Reader(socket.getInetAddress().toString(),
+                Reader rdr = new Reader(socket.getInetAddress().getHostAddress(),
                         Integer.parseInt(tokens[0]),
                         Integer.parseInt(tokens[1]),
                         tokens[2]);
-                SubscriptionServer.getReaderList().add(rdr);
+                ss.addReader(rdr);
+                ss.changed();
+                System.out.println(rdr + " has been added to reader list");
             }
             socket.close();
         } catch (IOException ex) {

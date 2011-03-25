@@ -65,7 +65,7 @@ public class PublishTest {
             int pingInterval = Integer.parseInt(config.getProperty("pingInterval"));
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
             SubscriptionServer ss = new SubscriptionServer(serverPort, pingInterval, dbUsername, dbPassword);
-            ss.broadcastMessage("test Message", 1);
+            ss.broadcastMessage("test Message4", 1);
             ss.unpublishIPOnDB();
         } catch (IOException ex) {
             Logger.getLogger(PublishTest.class.getName()).log(Level.SEVERE, null, ex);
