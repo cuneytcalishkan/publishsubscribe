@@ -5,8 +5,6 @@
 
 package client;
 
-import java.util.logging.LogManager;
-
 /**
  *
  * @author Natan
@@ -17,6 +15,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        new Client().start();
         // TODO code application logic here
     }
 

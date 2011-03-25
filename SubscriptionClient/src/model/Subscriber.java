@@ -14,14 +14,20 @@ import java.util.List;
  */
 public class Subscriber {
 
-    List<Message> sinyaller;
-    List<Message> yorumlar;
+    List<Message> signals;
+    List<Message> comments;
 
     public Subscriber() {
-        sinyaller = new ArrayList<Message>();
-        yorumlar = new ArrayList<Message>();
+        signals = new ArrayList<Message>();
+        comments = new ArrayList<Message>();
     }
 
-    
+    public void addSignal(Message mes){
+        signals.add(mes);
+    }
+
+    public void addComment(Message mes){
+        comments.add(mes);
+    }
 
 }
