@@ -15,6 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import server.Configure;
@@ -44,7 +45,9 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
             server = new SubscriptionServer(serverPort, username, password);
             server.addObserver(this);
             readersList.setModel(new ReaderListModel(server.getReaderList()));
+            setLocationRelativeTo(null);
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Konfigürasyon dosyasına erişilemiyor!");
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
