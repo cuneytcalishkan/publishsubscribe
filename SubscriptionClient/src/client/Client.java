@@ -50,7 +50,7 @@ public class Client extends Observable implements Runnable {
         try {
             String username = "okuyucu";
             String password = "oku123yucu";
-            Connection conn = ConnectDB.getConnection(username, password);
+            Connection conn = ConnectDB.getConnection(configure.getProperty("dbURL"),username, password);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM newsAndComments");
             subscriber = new Subscriber();
