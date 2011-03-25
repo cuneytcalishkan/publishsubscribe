@@ -129,3 +129,18 @@
   <message>Socket is closed</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T21:57:06</date>
+  <millis>1301086626212</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>run</method>
+  <thread>10</thread>
+  <message>Connection reset</message>
+</record>
+</log>
