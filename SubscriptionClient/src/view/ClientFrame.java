@@ -12,11 +12,15 @@ package view;
 
 import client.Client;
 import com.sun.media.sound.JavaSoundAudioClip;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -36,8 +40,9 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     private void init() {
         try {
             client = new Client();
+            client.addObserver(this);
             client.start();
-            sound = new JavaSoundAudioClip(this.getClass().getClassLoader().getResourceAsStream("resources/newMessage.wav"));
+            sound = new JavaSoundAudioClip(new FileInputStream(new File("resources/newMessage.wav")));
         } catch (IOException ex) {
             Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,7 +131,18 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new ClientFrame().setVisible(true);
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    new ClientFrame().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
