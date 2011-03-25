@@ -53,4 +53,9 @@ public class Reader {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        return "Reader{" + "address=" + address + "username=" + username + '}';
+    }
 }
