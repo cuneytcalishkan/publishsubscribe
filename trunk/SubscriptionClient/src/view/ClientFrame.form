@@ -104,11 +104,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sinyaller"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewSignalsButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="commentsButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Yorumlar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="commentsButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
