@@ -243,3 +243,115 @@
   <message>Connection reset</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T23:45:25</date>
+  <millis>1301093125097</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.ConnectDB</class>
+  <method>getConnection</method>
+  <thread>10</thread>
+  <message>Access denied for user 'okuyucu'@'s83-179-45-244.cust.tele2.se' (using password: YES)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T23:46:48</date>
+  <millis>1301093208713</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.ConnectDB</class>
+  <method>getConnection</method>
+  <thread>10</thread>
+  <message>Access denied for user 'okuyucu'@'s83-179-45-244.cust.tele2.se' (using password: YES)</message>
+</record>
+<record>
+  <date>2011-03-25T23:46:52</date>
+  <millis>1301093212987</millis>
+  <sequence>1</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.ConnectDB</class>
+  <method>getConnection</method>
+  <thread>11</thread>
+  <message>Access denied for user 'okuyucu'@'s83-179-45-244.cust.tele2.se' (using password: YES)</message>
+</record>
+<record>
+  <date>2011-03-25T23:46:56</date>
+  <millis>1301093216934</millis>
+  <sequence>2</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.ConnectDB</class>
+  <method>getConnection</method>
+  <thread>12</thread>
+  <message>Access denied for user 'okuyucu'@'s83-179-45-244.cust.tele2.se' (using password: YES)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T23:48:09</date>
+  <millis>1301093289864</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.ConnectDB</class>
+  <method>getConnection</method>
+  <thread>10</thread>
+  <message>Access denied for user 'okuyucu'@'s83-179-45-244.cust.tele2.se' (using password: YES)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T23:50:59</date>
+  <millis>1301093459561</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.ConnectDB</class>
+  <method>getConnection</method>
+  <thread>10</thread>
+  <message>Access denied for user 'okuyucu'@'s83-179-45-244.cust.tele2.se' (using password: YES)</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T23:53:43</date>
+  <millis>1301093623049</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>run</method>
+  <thread>10</thread>
+  <message>Connection reset</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2011-03-25T23:56:03</date>
+  <millis>1301093763028</millis>
+  <sequence>0</sequence>
+  <logger>subscription.server</logger>
+  <level>SEVERE</level>
+  <class>client.Client</class>
+  <method>run</method>
+  <thread>10</thread>
+  <message>Connection reset</message>
+</record>
+</log>
