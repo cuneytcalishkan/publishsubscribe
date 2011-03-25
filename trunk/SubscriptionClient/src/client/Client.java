@@ -100,6 +100,7 @@ public class Client implements Runnable {
             BufferedReader br = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             String[] line = br.readLine().split("|");
             sock.close();
+            System.out.println(line);
             String content = line[3];
             for (int i = 4; i < line.length; i++) {
                 content += line[i];
