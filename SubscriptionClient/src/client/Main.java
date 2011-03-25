@@ -5,6 +5,8 @@
 
 package client;
 
+import java.util.logging.LogManager;
+
 /**
  *
  * @author Natan
