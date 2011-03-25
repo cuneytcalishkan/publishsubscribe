@@ -71,7 +71,7 @@ public class Client extends Observable implements Runnable {
                 listenerThread.start();
 
             } else {
-                JOptionPane.showMessageDialog(null, "Bağlanılacak sunucu bile yok.\n Eski mesajlarla idare et.");
+                JOptionPane.showMessageDialog(null, "Bağlanılacak aktif bir sunucu yok.\nEski mesajlar listeleniyor.");
                 //TODO server yok, ne bok yiyeceğiz?
             }
             conn.close();
@@ -81,7 +81,7 @@ public class Client extends Observable implements Runnable {
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex);
-            JOptionPane.showMessageDialog(null, "Sunucuya bağlanılamıyor.\n" + ex);
+            JOptionPane.showMessageDialog(null, "Sunucuya bağlanılamıyor.\nEski mesajlar listeleniyor.");
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -112,7 +112,7 @@ public class Client extends Observable implements Runnable {
             }
         } catch (IOException ex) {
             System.out.println(ex);
-            JOptionPane.showMessageDialog(null, "Bağlantı Gitti.\n" + ex);
+            JOptionPane.showMessageDialog(null, "Sunucuyla bağlantı kesildi.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
 
