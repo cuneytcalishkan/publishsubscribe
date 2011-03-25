@@ -58,4 +58,9 @@ public class Message {
     public void setTime(Time time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" + "date=" + date + "time=" + time + "content=" + content + "category=" + category + '}';
+    }
 }

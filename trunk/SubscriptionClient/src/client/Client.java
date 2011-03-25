@@ -31,7 +31,6 @@ public class Client implements Runnable {
     private Configure configure;
     private Ponger ponger;
     private Subscriber subscriber;
-
     private ServerSocket ser;
 
     public Client() {
@@ -94,26 +93,30 @@ public class Client implements Runnable {
 
     @Override
     public void run() {
+
         try {
             ser = new ServerSocket(Integer.parseInt(configure.getProperty("port")));
-            Socket sock = ser.accept();
-            BufferedReader br = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            String[] line = br.readLine().split("|");
-            sock.close();
-            System.out.println(line);
-            String content = line[3];
-            for (int i = 4; i < line.length; i++) {
-                content += line[i];
+            while (true) {
+                Socket sock = ser.accept();
+                BufferedReader br = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+                String[] line = br.readLine().split(":");
+                sock.close();
+                String content = line[3];
+                for (int i = 4; i < line.length; i++) {
+                    content += line[i];
+                }
+                Message mes = new Message(new Date(Long.parseLong(line[0])), new Time(Long.parseLong(line[1])), content, Integer.parseInt(line[2]));
+                subscriber.addMessage(mes);
+                System.out.println("Received: " + mes);
             }
-            Message mes = new Message(new Date(Long.parseLong(line[0])), new Time(Long.parseLong(line[1])), content, Integer.parseInt(line[2]));
-            subscriber.addMessage(mes);
         } catch (IOException ex) {
             System.out.println(ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-        } 
+        }
+
     }
 
-    public void finish(){
+    public void finish() {
         try {
             ser.close();
             ponger.finish();
