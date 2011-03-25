@@ -51,18 +51,23 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
     }
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            new AdminFrame().setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    new AdminFrame().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /** This method is called from within the constructor to
