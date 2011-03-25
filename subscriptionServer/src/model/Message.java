@@ -5,7 +5,7 @@
 package model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.sql.Time;
 
 /**
  *
@@ -14,13 +14,13 @@ import java.sql.Timestamp;
 public class Message {
 
     private Date date;
-    private Timestamp time;
+    private Time time;
     private String content;
     private int category;
     public static final int NEWS = 1;
     public static final int COMMENT = 2;
 
-    public Message(Date date, Timestamp time, String content, int category) {
+    public Message(Date date, Time time, String content, int category) {
         this.date = date;
         this.time = time;
         this.content = content;
@@ -51,11 +51,11 @@ public class Message {
         this.date = date;
     }
 
-    public Timestamp getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 }
