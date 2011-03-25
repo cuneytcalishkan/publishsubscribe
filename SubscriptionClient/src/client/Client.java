@@ -44,7 +44,8 @@ public class Client implements Runnable {
             subscriber = new Subscriber();
 
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
 
@@ -68,27 +69,29 @@ public class Client implements Runnable {
             if (rs != null) {
                 serverURL = rs.getString(2);
                 serverPort = rs.getInt(3);
-                try {
-                    Socket sock = new Socket(serverURL, serverPort);
-                    PrintWriter pw = new PrintWriter(sock.getOutputStream());
-                    pw.println(configure.getProperty("port") + ","
-                            + configure.getProperty("pongPort") + ","
-                            + username);
-                    pw.flush();
-                    pw.close();
-                    sock.close();
-                    listenerThread = new Thread(this);
-                    listenerThread.start();
-                } catch (UnknownHostException ex) {
-                    Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Socket sock = new Socket(serverURL, serverPort);
+                PrintWriter pw = new PrintWriter(sock.getOutputStream());
+                pw.println(configure.getProperty("port") + ","
+                        + configure.getProperty("pongPort") + ","
+                        + username);
+                pw.flush();
+                pw.close();
+                sock.close();
+                listenerThread = new Thread(this);
+                listenerThread.start();
+
             } else {
                 //TODO server yok, ne bok yiyeceğiz?
             }
+        } catch (UnknownHostException ex) {
+            System.out.println(ex);
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex);
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
 
@@ -107,7 +110,8 @@ public class Client implements Runnable {
             Message mes = new Message(new Date(Long.parseLong(line[0])), new Time(Long.parseLong(line[1])), content, Integer.parseInt(line[2]));
             subscriber.addMessage(mes);
         } catch (IOException ex) {
-            Logger.getLogger(Ponger.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
 }
