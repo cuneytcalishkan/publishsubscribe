@@ -76,6 +76,11 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         reconnectButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         playSoundCheckBox.setText("Sesli Uyarı");
 
@@ -170,6 +175,10 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     private void reconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reconnectButtonActionPerformed
         client.connect();
     }//GEN-LAST:event_reconnectButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        client.finish();
+    }//GEN-LAST:event_formWindowClosing
 
     private void updateMessageList() {
         if (selected == Message.SIGNAL) {
