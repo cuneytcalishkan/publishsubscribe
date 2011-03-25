@@ -61,6 +61,6 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" + "date=" + date + "time=" + time + "content=" + content + "category=" + category + '}';
+        return date + " " + time + " " + content;
     }
 }
