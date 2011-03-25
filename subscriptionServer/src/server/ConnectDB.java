@@ -17,7 +17,7 @@ public class ConnectDB {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            String url = "jdbc:mysql://mysql02.natro.com:3306/orenux";
+            String url = "jdbc:mysql://mysql02.natro.com:3306/orenux?useUnicode=true&amp;characterEncoding=utf-8";
             try {
                 connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
