@@ -19,7 +19,8 @@ public class Main {
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
             String username = config.getProperty("dbUsername");
             String password = config.getProperty("dbPassword");
-            SubscriptionServer ss = new SubscriptionServer(serverPort, username, password);
+            String host = config.getProperty("dbURL");
+            SubscriptionServer ss = new SubscriptionServer(serverPort, username, password, host);
             Thread.sleep(3000);
             ss.broadcastMessage("server sending message to client", 2);
             Object sync = new Object();

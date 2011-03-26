@@ -33,11 +33,13 @@ public class SubscriptionServer extends Observable {
     private Executor executor;
     private String username;
     private String password;
+    private String host;
 
-    public SubscriptionServer(int p, String uname, String pwd) {
+    public SubscriptionServer(int p, String uname, String pwd, String hst) {
         port = p;
         username = uname;
         password = pwd;
+        host = hst;
         executor = Executors.newCachedThreadPool();
         init();
     }
@@ -55,7 +57,7 @@ public class SubscriptionServer extends Observable {
 
     private void publishIPOnDB() {
         try {
-            Connection connection = ConnectDB.getConnection(username, password);
+            Connection connection = ConnectDB.getConnection(host, username, password);
             String truncate = "TRUNCATE TABLE serverURL";
             String sql = "INSERT INTO serverURL (`url`,`port`) VALUES(?,?)";
             PreparedStatement ps = connection.prepareStatement(truncate);
@@ -129,6 +131,14 @@ public class SubscriptionServer extends Observable {
         this.username = username;
     }
 
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
     public ArrayList<Reader> getReaderList() {
         return readerList;
     }
@@ -143,5 +153,13 @@ public class SubscriptionServer extends Observable {
 
     public boolean remove(Reader o) {
         return readerList.remove(o);
+    }
+
+    public boolean add(Reader e) {
+        boolean result = readerList.add(e);
+        if (result) {
+            changed();
+        }
+        return result;
     }
 }

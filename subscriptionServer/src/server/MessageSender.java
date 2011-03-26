@@ -37,7 +37,7 @@ public class MessageSender implements Runnable {
     public void run() {
         try {
             ArrayList<Reader> removal = new ArrayList<Reader>();
-            Connection connection = ConnectDB.getConnection(ss.getUsername(), ss.getPassword());
+            Connection connection = ConnectDB.getConnection(ss.getHost(), ss.getUsername(), ss.getPassword());
             String sql = "INSERT INTO newsAndComments (`content`,`category`,`eDate`,`eTime`) VALUES(?,?,?,?)";
             Date eDate = new Date(System.currentTimeMillis());
             Time eTime = new Time(System.currentTimeMillis());

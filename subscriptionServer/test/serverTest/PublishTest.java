@@ -49,9 +49,10 @@ public class PublishTest {
 //            Configure config = new Configure();
 //            String dbUsername = config.getProperty("dbUsername");
 //            String dbPassword = config.getProperty("dbPassword");
+//             String host = config.getProperty("dbURL");
 //            int pingInterval = Integer.parseInt(config.getProperty("pingInterval"));
 //            int serverPort = Integer.parseInt(config.getProperty("serverPort"));
-//            SubscriptionServer ss = new SubscriptionServer(serverPort, pingInterval, dbUsername, dbPassword);
+//            SubscriptionServer ss = new SubscriptionServer(serverPort, dbUsername, dbPassword, host);
 //        } catch (IOException ex) {
 //            Logger.getLogger(PublishTest.class.getName()).log(Level.SEVERE, null, ex);
 //        }
@@ -62,8 +63,9 @@ public class PublishTest {
             Configure config = new Configure();
             String dbUsername = config.getProperty("dbUsername");
             String dbPassword = config.getProperty("dbPassword");
+            String host = config.getProperty("dbURL");
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
-            SubscriptionServer ss = new SubscriptionServer(serverPort, dbUsername, dbPassword);
+            SubscriptionServer ss = new SubscriptionServer(serverPort, dbUsername, dbPassword, host);
             ss.broadcastMessage("test Message4", 1);
             ss.unpublishIPOnDB();
         } catch (IOException ex) {

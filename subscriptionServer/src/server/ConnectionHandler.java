@@ -18,8 +18,8 @@ import model.Reader;
 public class ConnectionHandler implements Runnable {
 
     private Socket socket;
-    private BufferedReader reader;
     private SubscriptionServer ss;
+    private Reader rdr;
 
     public ConnectionHandler(Socket s, SubscriptionServer ss) {
         this.socket = s;
@@ -28,15 +28,19 @@ public class ConnectionHandler implements Runnable {
 
     public void run() {
         try {
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String line;
             line = reader.readLine();
-            Reader rdr = new Reader(socket.getInetAddress().getHostAddress(), line, socket);
-            ss.getReaderList().add(rdr);
-            ss.changed();
+            rdr = new Reader(socket.getInetAddress().getHostAddress(), line, socket);
+            ss.add(rdr);
+            if (reader.readLine() == null) {
+                ss.remove(rdr);
+                ss.changed();
+            }
         } catch (IOException ex) {
             System.out.println(ex);
-            //TODO kullanıcı gitti. saygılar.
+            ss.remove(rdr);
+            ss.changed();
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
     }
