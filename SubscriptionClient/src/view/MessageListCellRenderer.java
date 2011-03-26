@@ -6,7 +6,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -36,8 +35,8 @@ public class MessageListCellRenderer extends DefaultListCellRenderer {
                 }
                 
             }
-            c.setFont(new Font("Roman", Font.PLAIN, 12));
-            c.setText(((Message) value).getContent());
+            //ic.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+            c.setText(((Message) value).toString());
         }
         return c;
     }
