@@ -20,7 +20,7 @@ public class SLogger {
     static {
         logger = Logger.getLogger("subscription.server");
         try {
-            FileHandler handler = new FileHandler("resources/log.txt", true);
+            FileHandler handler = new FileHandler("log.txt", true);
             logger.addHandler(handler);
         } catch (IOException ex) {
             Logger.getLogger(SLogger.class.getName()).log(Level.SEVERE, null, ex);
