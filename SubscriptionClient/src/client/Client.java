@@ -143,7 +143,8 @@ public class Client extends Observable implements Runnable {
 
     public void finish() {
         try {
-            sock.close();
+            if(sock != null && !sock.isClosed())
+                sock.close();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
