@@ -93,6 +93,7 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
         messageLabel = new javax.swing.JLabel();
         sendButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
+        clock1 = new view.Clock();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration Panel");
@@ -108,7 +109,7 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
 
         categoryLabel.setText("Kategori");
 
-        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sinyaller", "Yorumlar" }));
+        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sinyaller", "Anlık Yorumlar" }));
 
         readersList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         readersScrollPane.setViewportView(readersList);
@@ -149,7 +150,8 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
                         .addComponent(categoryComboBox, 0, 406, Short.MAX_VALUE))
                     .addComponent(messageScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                        .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                         .addComponent(resetButton)
                         .addGap(18, 18, 18)
                         .addComponent(sendButton)))
@@ -175,9 +177,11 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
                         .addComponent(messageScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(sendButton)
-                            .addComponent(resetButton)))
+                        .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(sendButton)
+                                .addComponent(resetButton))
+                            .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(readersScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -225,6 +229,7 @@ server.unpublishIPOnDB();        // TODO add your handling code here:
     private javax.swing.JPanel AdminPanel;
     private javax.swing.JComboBox categoryComboBox;
     private javax.swing.JLabel categoryLabel;
+    private view.Clock clock1;
     private javax.swing.JTextArea messageArea;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JScrollPane messageScrollPane;
