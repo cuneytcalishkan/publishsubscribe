@@ -42,7 +42,8 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
             int serverPort = Integer.parseInt(config.getProperty("serverPort"));
             String username = config.getProperty("dbUsername");
             String password = config.getProperty("dbPassword");
-            server = new SubscriptionServer(serverPort, username, password);
+            String host = config.getProperty("dbURL");
+            server = new SubscriptionServer(serverPort, username, password, host);
             server.addObserver(this);
             readersList.setModel(new ReaderListModel(server.getReaderList()));
             setLocationRelativeTo(null);

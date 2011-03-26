@@ -24,7 +24,7 @@ public class Unpublisher implements Runnable {
     public void run() {
         try {
             String sql = "TRUNCATE TABLE serverURL";
-            Connection connection = ConnectDB.getConnection(ss.getUsername(), ss.getPassword());
+            Connection connection = ConnectDB.getConnection(ss.getHost(), ss.getUsername(), ss.getPassword());
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.executeUpdate();
             connection.close();
