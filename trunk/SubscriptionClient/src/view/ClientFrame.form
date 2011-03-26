@@ -57,7 +57,7 @@
                           <Component id="viewSignalsButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="commentsButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="236" max="32767" attributes="0"/>
+                          <EmptySpace pref="80" max="32767" attributes="0"/>
                           <Component id="reconnectButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -75,7 +75,7 @@
                       <Component id="reconnectButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="messagesScrollPane" pref="277" max="32767" attributes="0"/>
+                  <Component id="messagesScrollPane" pref="243" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="playSoundCheckBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -111,6 +111,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="viewSignalsButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/signal.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Sinyaller"/>
           </Properties>
           <Events>
@@ -119,6 +122,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="commentsButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/comment.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Yorumlar"/>
           </Properties>
           <Events>
@@ -127,6 +133,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="reconnectButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/socket.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ba&#x11f;lant&#x131; Yenile"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>

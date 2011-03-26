@@ -88,6 +88,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         messageList.setCellRenderer(new MessageCellRenderer());
         messagesScrollPane.setViewportView(messageList);
 
+        viewSignalsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/signal.png"))); // NOI18N
         viewSignalsButton.setText("Sinyaller");
         viewSignalsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +96,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             }
         });
 
+        commentsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/comment.png"))); // NOI18N
         commentsButton.setText("Yorumlar");
         commentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +104,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             }
         });
 
+        reconnectButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/socket.png"))); // NOI18N
         reconnectButton.setText("Bağlantı Yenile");
         reconnectButton.setEnabled(false);
         reconnectButton.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +126,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                         .addComponent(viewSignalsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(commentsButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addComponent(reconnectButton)))
                 .addContainerGap())
         );
@@ -136,7 +139,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                     .addComponent(commentsButton)
                     .addComponent(reconnectButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(playSoundCheckBox)
                 .addContainerGap())
