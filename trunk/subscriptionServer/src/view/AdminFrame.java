@@ -112,10 +112,13 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
         readersList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         readersScrollPane.setViewportView(readersList);
 
+        readersLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/users.png"))); // NOI18N
         readersLabel.setText("BAGLI KULLANICILAR");
 
+        messageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/mail.png"))); // NOI18N
         messageLabel.setText("Mesaj");
 
+        sendButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/send.png"))); // NOI18N
         sendButton.setText("GÖNDER");
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +126,7 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
             }
         });
 
+        resetButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/delete.png"))); // NOI18N
         resetButton.setText("TEMIZLE");
         resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,16 +145,16 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
                         .addComponent(categoryLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(categoryComboBox, 0, 300, Short.MAX_VALUE))
-                    .addComponent(messageScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                        .addComponent(categoryComboBox, 0, 406, Short.MAX_VALUE))
+                    .addComponent(messageScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                         .addComponent(resetButton)
                         .addGap(18, 18, 18)
                         .addComponent(sendButton)))
                 .addGap(6, 6, 6)
                 .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(readersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                    .addComponent(readersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                     .addComponent(readersLabel))
                 .addContainerGap())
         );
@@ -168,12 +172,12 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
-                        .addComponent(messageScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                        .addComponent(messageScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sendButton)
                             .addComponent(resetButton)))
-                    .addComponent(readersScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+                    .addComponent(readersScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
