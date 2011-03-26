@@ -125,7 +125,8 @@ public class Client extends Observable implements Runnable {
                 }
                 Message mes = new Message(new Date(Long.parseLong(line[0])), new Time(Long.parseLong(line[1])), content, Integer.parseInt(line[2]));
                 subscriber.addMessage(mes);
-                changed();
+                setChanged();
+                notifyObservers(mes.getCategory());
             }
         } catch (IOException ex) {
             System.out.println(ex);

@@ -30,11 +30,11 @@ public class Subscriber {
     }
 
     private void addSignal(Message mes) {
-        signals.add(mes);
+        signals.add(0, mes);
     }
 
     private void addComment(Message mes) {
-        comments.add(mes);
+        comments.add(0, mes);
     }
 
     public List<Message> getComments() {

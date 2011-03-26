@@ -12,6 +12,8 @@ package view;
 
 import client.Client;
 import com.sun.media.sound.JavaSoundAudioClip;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import model.Message;
@@ -72,6 +76,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         viewSignalsButton = new javax.swing.JButton();
         commentsButton = new javax.swing.JButton();
         reconnectButton = new javax.swing.JButton();
+        clock1 = new view.Clock();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sinyaller ve Yorumlar");
@@ -95,7 +100,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         });
 
         commentsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/comment.png"))); // NOI18N
-        commentsButton.setText("Yorumlar");
+        commentsButton.setText("Anlık Yorumlar");
         commentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 commentsButtonActionPerformed(evt);
@@ -119,13 +124,16 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                    .addComponent(playSoundCheckBox)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(viewSignalsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(commentsButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                        .addComponent(reconnectButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addComponent(reconnectButton))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(playSoundCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
+                        .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
@@ -137,9 +145,11 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                     .addComponent(commentsButton)
                     .addComponent(reconnectButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(playSoundCheckBox)
+                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(playSoundCheckBox)
+                    .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -165,11 +175,13 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
 
     private void viewSignalsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSignalsButtonActionPerformed
         selected = Message.SIGNAL;
+        viewSignalsButton.setBackground(Color.white);
         updateMessageList();
     }//GEN-LAST:event_viewSignalsButtonActionPerformed
 
     private void commentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentsButtonActionPerformed
         selected = Message.COMMENT;
+        commentsButton.setBackground(Color.white);
         updateMessageList();
     }//GEN-LAST:event_commentsButtonActionPerformed
 
@@ -187,9 +199,10 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         } else {
             messageList.setModel(new MessageModel(client.getComments()));
         }
-        messageList.ensureIndexIsVisible(messageList.getModel().getSize() - 1);
+        //messageList.ensureIndexIsVisible(messageList.getModel().getSize() - 1);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.Clock clock1;
     private javax.swing.JButton commentsButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JList messageList;
@@ -202,6 +215,12 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     public void update(Observable o, Object arg) {
         if (playSoundCheckBox.isSelected()) {
             sound.play();
+        }
+        if((Integer)arg != selected){
+            if(selected == Message.COMMENT)
+                viewSignalsButton.setBackground(Color.red);
+            else
+                commentsButton.setBackground(Color.red);
         }
         updateMessageList();
     }
