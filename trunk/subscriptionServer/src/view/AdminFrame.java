@@ -203,8 +203,12 @@ public class AdminFrame extends javax.swing.JFrame implements Observer {
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
 
-        server.broadcastMessage(messageArea.getText(), categoryComboBox.getSelectedIndex() + 1);
-        messageArea.setText("");
+        if (messageArea.getText().trim().isEmpty()) {
+            JOptionPane.showConfirmDialog(null, "Mesaj alanı boş!");
+        } else {
+            server.broadcastMessage(messageArea.getText(), categoryComboBox.getSelectedIndex() + 1);
+            messageArea.setText("");
+        }
 
     }//GEN-LAST:event_sendButtonActionPerformed
 
