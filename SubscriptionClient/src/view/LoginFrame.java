@@ -74,6 +74,12 @@ public class LoginFrame extends javax.swing.JFrame {
 
         passwordLabel.setText("Şifre");
 
+        passwordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordFieldActionPerformed(evt);
+            }
+        });
+
         loginButton.setText("Giriş");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,11 +148,20 @@ public class LoginFrame extends javax.swing.JFrame {
         if (usernameField.getText().isEmpty() || passwordField.getPassword().length == 0) {
             JOptionPane.showMessageDialog(null, "Kullanıcı adı/Şifre boş olamaz!");
         } else {
-            new ClientFrame(usernameField.getText(), new String(passwordField.getPassword())).setVisible(true);
-            setVisible(false);
+            try {
+                new ClientFrame(usernameField.getText(), new String(passwordField.getPassword())).setVisible(true);
+                setVisible(false);
+            } catch(NullPointerException ex){
+                JOptionPane.showMessageDialog(this, "Kullanıcı adı/şifresi hatalı.");
+            }
         }
 
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
+        loginButtonActionPerformed(evt);
+    }//GEN-LAST:event_passwordFieldActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton loginButton;

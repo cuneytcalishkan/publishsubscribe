@@ -79,7 +79,7 @@ public class Client extends Observable implements Runnable {
         }
     }
 
-    public void start() {
+    public void start() throws NullPointerException{
         // constructor'a parametre olarak gelecek bağlanma ekranından sonra.
         try {
             Connection conn = ConnectDB.getConnection(configure.getProperty("dbURL"), username, password);

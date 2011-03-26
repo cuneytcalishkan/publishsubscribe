@@ -38,14 +38,14 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     private String password;
 
     /** Creates new form ClientFrame */
-    public ClientFrame(String username, String password) {
+    public ClientFrame(String username, String password) throws NullPointerException {
         initComponents();
         this.username = username;
         this.password = password;
         init();
     }
 
-    private void init() {
+    private void init() throws NullPointerException {
         try {
             client = new Client(username, password, this);
             client.addObserver(this);
