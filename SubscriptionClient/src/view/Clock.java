@@ -47,7 +47,7 @@ public class Clock extends Component {
     public void paint(Graphics g) {
         Calendar myCal = Calendar.getInstance();
         StringBuffer sb = new StringBuffer();
-        sb.append(tf.format(myCal.get(Calendar.HOUR)));
+        sb.append(tf.format(myCal.get(Calendar.HOUR_OF_DAY)));
         sb.append(':');
         sb.append(tflz.format(myCal.get(Calendar.MINUTE)));
         sb.append(':');

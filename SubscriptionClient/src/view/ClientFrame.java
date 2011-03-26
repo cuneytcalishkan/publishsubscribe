@@ -146,8 +146,8 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                 .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                 .addGap(17, 17, 17)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(clock1, 0, 0, Short.MAX_VALUE)
-                    .addComponent(playSoundCheckBox))
+                    .addComponent(playSoundCheckBox)
+                    .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 

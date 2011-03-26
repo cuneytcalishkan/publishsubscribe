@@ -26,7 +26,7 @@ public class MessageListCellRenderer extends DefaultListCellRenderer {
 
             if (isSelected) {
                 c.setBackground(Color.blue);
-                c.setForeground(Color.black);
+                c.setForeground(Color.white);
             } else {
 
                 if (index % 2 == 0) {
@@ -34,8 +34,9 @@ public class MessageListCellRenderer extends DefaultListCellRenderer {
                 } else {
                     c.setBackground(Color.white);
                 }
-                c.setFont(new Font("Roman", Font.PLAIN, 12));
+                
             }
+            c.setFont(new Font("Roman", Font.PLAIN, 12));
             c.setText(((Message) value).getContent());
         }
         return c;

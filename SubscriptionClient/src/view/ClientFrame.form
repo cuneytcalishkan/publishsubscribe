@@ -83,8 +83,8 @@
                   <Component id="messagesScrollPane" pref="225" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="clock1" min="0" pref="0" max="32767" attributes="1"/>
-                      <Component id="playSoundCheckBox" alignment="1" min="-2" max="-2" attributes="1"/>
+                      <Component id="playSoundCheckBox" min="-2" max="-2" attributes="1"/>
+                      <Component id="clock1" min="-2" pref="13" max="-2" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
