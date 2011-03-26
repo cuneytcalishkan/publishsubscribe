@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -50,39 +51,19 @@ public class Client extends Observable implements Runnable {
         this.view = view;
     }
 
-    public void connect() {
-        try {
-            Connection conn = ConnectDB.getConnection(configure.getProperty("dbURL"), username, password);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM serverURL LIMIT 1");
-            if (rs.next()) {
-                String serverURL = rs.getString(2);
-                int serverPort = rs.getInt(3);
-                sock = new Socket(serverURL, serverPort);
-                PrintWriter pw = new PrintWriter(sock.getOutputStream());
-                pw.println(username);
-                pw.flush();
-                Thread listenerThread = new Thread(this);
-                listenerThread.start();
-                view.setConnectionButtonVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Bağlanılacak aktif bir sunucu yok.");
-            }
-        } catch (IOException ex) {
-            System.out.println(ex);
-            JOptionPane.showMessageDialog(null, "Sunucuya bağlanılamıyor.");
-            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n" + ex);
-            SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
-        }
+    public void setConnectionButtonVisible(boolean aFlag) {
+        view.setConnectionButtonVisible(aFlag);
     }
 
-    public void start() throws NullPointerException{
+    public void connect() {
+        new Connector(configure.getProperty("dbURL"), username, password, this, sock).start();
+    }
+
+    public void start() throws NullPointerException {
         // constructor'a parametre olarak gelecek bağlanma ekranından sonra.
+        Connection conn = null;
         try {
-            Connection conn = ConnectDB.getConnection(configure.getProperty("dbURL"), username, password);
+            conn = ConnectDB.getConnection(configure.getProperty("dbURL"), username, password);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM newsAndComments ORDER BY `id` ASC");
             subscriber = new Subscriber();
@@ -95,7 +76,8 @@ public class Client extends Observable implements Runnable {
             if (rs.next()) {
                 String serverURL = rs.getString(2);
                 int serverPort = rs.getInt(3);
-                sock = new Socket(serverURL, serverPort);
+                sock = new Socket();
+                sock.connect(new InetSocketAddress(serverURL, serverPort), 5000);
                 PrintWriter pw = new PrintWriter(sock.getOutputStream());
                 pw.println(username);
                 pw.flush();
@@ -104,18 +86,24 @@ public class Client extends Observable implements Runnable {
 
             } else {
                 JOptionPane.showMessageDialog(null, "Bağlanılacak aktif bir sunucu yok.\nEski mesajlar listeleniyor.");
-                view.setConnectionButtonVisible(true);
+                setConnectionButtonVisible(true);
             }
-            conn.close();
         } catch (IOException ex) {
             System.out.println(ex);
             JOptionPane.showMessageDialog(null, "Sunucuya bağlanılamıyor.\nEski mesajlar listeleniyor.");
-            view.setConnectionButtonVisible(true);
+            setConnectionButtonVisible(true);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         } catch (SQLException ex) {
             System.out.println(ex);
             JOptionPane.showMessageDialog(null, "Veritabanına bağlanılamıyor.\n" + ex);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
+        }
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -142,7 +130,7 @@ public class Client extends Observable implements Runnable {
         } catch (IOException ex) {
             System.out.println(ex);
             JOptionPane.showMessageDialog(null, "Sunucuyla bağlantı kesildi.\n" + ex);
-            view.setConnectionButtonVisible(true);
+            setConnectionButtonVisible(true);
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
 
@@ -175,5 +163,9 @@ public class Client extends Observable implements Runnable {
 
     public List<Message> getComments() {
         return subscriber.getComments();
+    }
+
+    public void setSock(Socket sock) {
+        this.sock = sock;
     }
 }
