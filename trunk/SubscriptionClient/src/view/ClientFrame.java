@@ -16,6 +16,9 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -74,6 +77,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         commentsButton = new javax.swing.JButton();
         reconnectButton = new javax.swing.JButton();
         clock1 = new view.Clock();
+        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sinyaller ve Yorumlar");
@@ -114,6 +118,14 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             }
         });
 
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/logo2.jpg"))); // NOI18N
+        logo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -121,18 +133,20 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addComponent(viewSignalsButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(commentsButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                                .addComponent(reconnectButton))
-                            .addComponent(playSoundCheckBox))
-                        .addContainerGap())
-                    .addComponent(clock1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(viewSignalsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(commentsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addComponent(reconnectButton))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(playSoundCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addComponent(logo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,13 +157,14 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                     .addComponent(commentsButton)
                     .addComponent(reconnectButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(playSoundCheckBox)
-                        .addGap(14, 14, 14))
-                    .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(logo))
+                    .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,6 +207,22 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         client.finish();
     }//GEN-LAST:event_formWindowClosing
 
+    private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
+
+        try {
+            URI url = new URI("http://www.orenux.com/forum");
+            java.awt.Desktop.getDesktop().browse(url);
+            /*JEditorPane output = new JEditorPane();
+            output.setContentType("text/html");
+            output.setEditable(false);
+            output.setPage( "http://mindprod.com" );*/
+        } catch (IOException ex) {
+            Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_logoMouseClicked
+
     private void updateMessageList() {
         if (selected == Message.SIGNAL) {
             messageList.setModel(new MessageModel(client.getSignals()));
@@ -203,6 +234,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.Clock clock1;
     private javax.swing.JButton commentsButton;
+    private javax.swing.JLabel logo;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JList messageList;
     private javax.swing.JScrollPane messagesScrollPane;
