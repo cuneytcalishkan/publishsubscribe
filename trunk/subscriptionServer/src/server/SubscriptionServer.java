@@ -58,6 +58,7 @@ public class SubscriptionServer extends Observable {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.executeUpdate();
             connection.close();
+            System.out.println("naber");
         } catch (SQLException ex) {
             SLogger.getLogger().log(Level.SEVERE, ex.getMessage());
         }
