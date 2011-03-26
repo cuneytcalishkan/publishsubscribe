@@ -21,7 +21,6 @@ public class ConnectDB {
             try {
                 connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
-                System.out.println(1);
                 SLogger.getLogger().log(Level.SEVERE, e.getMessage());
             }
         }
