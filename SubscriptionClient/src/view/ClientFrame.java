@@ -84,7 +84,6 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         playSoundCheckBox.setText("Sesli Uyarı");
 
         messageList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        messageList.setCellRenderer(new MessageCellRenderer());
         messagesScrollPane.setViewportView(messageList);
 
         viewSignalsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/signal.png"))); // NOI18N
