@@ -55,11 +55,11 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="categoryLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="categoryComboBox" pref="300" max="32767" attributes="0"/>
+                          <Component id="categoryComboBox" pref="406" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="messageScrollPane" alignment="1" pref="344" max="32767" attributes="0"/>
+                      <Component id="messageScrollPane" alignment="1" pref="450" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="178" max="32767" attributes="0"/>
+                          <EmptySpace pref="204" max="32767" attributes="0"/>
                           <Component id="resetButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="sendButton" min="-2" max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="readersScrollPane" pref="301" max="32767" attributes="0"/>
+                      <Component id="readersScrollPane" pref="195" max="32767" attributes="0"/>
                       <Component id="readersLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -90,14 +90,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="messageScrollPane" pref="336" max="32767" attributes="0"/>
+                          <Component id="messageScrollPane" pref="280" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="sendButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="resetButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="readersScrollPane" alignment="1" pref="365" max="32767" attributes="0"/>
+                      <Component id="readersScrollPane" alignment="1" pref="331" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -154,16 +154,25 @@
         </Container>
         <Component class="javax.swing.JLabel" name="readersLabel">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/users.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="BAGLI KULLANICILAR"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="messageLabel">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/mail.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Mesaj"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="sendButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/send.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="G&#xd6;NDER"/>
           </Properties>
           <Events>
@@ -172,6 +181,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="resetButton">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/delete.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="TEMIZLE"/>
           </Properties>
           <Events>
