@@ -13,7 +13,6 @@ package view;
 import client.Client;
 import com.sun.media.sound.JavaSoundAudioClip;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -21,10 +20,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import model.Message;
 
 /**
@@ -55,6 +51,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             sound = new JavaSoundAudioClip(this.getClass().getResourceAsStream("newMessage.wav"));
             messageList.addMouseListener(new ActionJList(messageList));
             updateMessageList();
+            setLocationRelativeTo(null);
         } catch (IOException ex) {
             Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +86,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         playSoundCheckBox.setText("Sesli Uyarı");
 
         messageList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        messageList.setCellRenderer(new MessageListCellRenderer());
         messagesScrollPane.setViewportView(messageList);
 
         viewSignalsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/signal.png"))); // NOI18N
@@ -145,11 +143,11 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
                     .addComponent(commentsButton)
                     .addComponent(reconnectButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
+                .addComponent(messagesScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(playSoundCheckBox)
-                    .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clock1, 0, 0, Short.MAX_VALUE)
+                    .addComponent(playSoundCheckBox))
                 .addContainerGap())
         );
 
@@ -216,11 +214,12 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         if (playSoundCheckBox.isSelected()) {
             sound.play();
         }
-        if((Integer)arg != selected){
-            if(selected == Message.COMMENT)
+        if ((Integer) arg != selected) {
+            if (selected == Message.COMMENT) {
                 viewSignalsButton.setBackground(Color.red);
-            else
+            } else {
                 commentsButton.setBackground(Color.red);
+            }
         }
         updateMessageList();
     }
@@ -237,7 +236,13 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
                 Message msg = (Message) list.getSelectedValue();
-                JOptionPane.showMessageDialog(null, msg.getContent(), msg.getDate() + " " + msg.getTime(), JOptionPane.PLAIN_MESSAGE);
+                new MessageDialog(null, true, msg).setVisible(true);
+//                JTextArea ta = new JTextArea(msg.getContent());
+//                ta.setLineWrap(true);
+//                JScrollPane sp = new JScrollPane(ta);
+//                sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//                sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//                JOptionPane.showMessageDialog(null, sp, msg.getDate() + " " + msg.getTime(), JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
