@@ -14,8 +14,6 @@ import client.Client;
 import com.sun.media.sound.JavaSoundAudioClip;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -50,7 +48,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
             client = new Client(username, password, this);
             client.addObserver(this);
             client.start();
-            sound = new JavaSoundAudioClip(new FileInputStream(new File("resources/newMessage.wav")));
+            sound = new JavaSoundAudioClip(this.getClass().getResourceAsStream("newMessage.wav"));
             messageList.addMouseListener(new ActionJList(messageList));
             updateMessageList();
         } catch (IOException ex) {
@@ -76,6 +74,7 @@ public class ClientFrame extends javax.swing.JFrame implements Observer {
         reconnectButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sinyaller ve Yorumlar");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
